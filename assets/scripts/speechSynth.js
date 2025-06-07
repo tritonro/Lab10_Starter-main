@@ -31,7 +31,14 @@ function bindListeners() {
     let utterThis = new SpeechSynthesisUtterance(textToSpeak);
     utterThis.voice = voices[getOptionIndex()];
     synth.speak(utterThis);
-    openMouth();
+    voices = synth.getVoices();
+    let sandyESURI = "Sandy (Spanish (Spain))";
+    if (textToSpeak.toLowerCase() == "rosalía" && (utterThis.voice.voiceURI == sandyESURI)){
+      openMouth(true);
+    }
+    else{
+      openMouth(false);
+    }
   })
 }
 
@@ -41,12 +48,17 @@ function getOptionIndex() {
   return option.getAttribute('data-index');
 }
 
-function openMouth() {
+function openMouth(rosalia=false) {
   let face = document.querySelector('#explore > img');
-  face.setAttribute('src', 'assets/images/smiling-open.png');
+  if (rosalia == true){
+    face.setAttribute('src', 'assets/images/rosalia-open.png');
+  }
+  else{
+    face.setAttribute('src', 'assets/images/smiling-open.png');
+  }
   setTimeout(() => {
     if (synth.speaking) {
-      openMouth();
+      openMouth(rosalia);
     } else {
       face.setAttribute('src', 'assets/images/smiling.png');
     }
