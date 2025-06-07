@@ -50,7 +50,7 @@ function getOptionIndex() {
 
 function openMouth(rosalia=false) {
   let face = document.querySelector('#explore > img');
-  if (rosalia == true){
+  if (rosalia == true && shouldRosalia){
     face.setAttribute('src', 'assets/images/rosalia-open.png');
   }
   else{
